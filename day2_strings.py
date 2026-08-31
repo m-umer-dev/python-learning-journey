@@ -57,3 +57,34 @@ emails = [
 for email in emails:
     if "gmail" in email:
         print(email)
+
+
+# Challenge 01
+customers = [
+    "  Umer Amir  ",
+    "ALI KHAN",
+    "  sara ahmed",
+    "JOHN DOE  ",
+    "  ahmed ali "
+]
+
+for customer in customers:
+    customer = customer.strip()
+    customer = customer.lower()
+    print(customer)
+
+
+# Bonus
+emails = [
+    " Umer@Gmail.com ",
+    "ali@Yahoo.com",
+    " SARA@gmail.com ",
+    "ahmed@Outlook.com",
+    "john@GMAIL.com"
+]
+
+for email in emails:
+    email = email.strip()
+    email = email.lower()
+    if "gmail" in email:
+        print(email)
