@@ -1,0 +1,11 @@
+Date,Product,Category,Quantity,Price,City,Salesperson
+2026-01-05,Laptop,Electronics,2,100000,Lahore,Ali
+2026-01-07,Mouse,Electronics,5,2000,Karachi,Ahmed
+2026-01-10,Keyboard,Electronics,3,5000,Lahore,Sara
+2026-01-12,Chair,Furniture,4,15000,Islamabad,Ali
+2026-01-15,Desk,Furniture,2,30000,Lahore,Hamza
+2026-01-18,Monitor,Electronics,3,25000,Karachi,Sara
+2026-01-20,Laptop,Electronics,1,100000,Islamabad,Ahmed
+2026-01-22,Chair,Furniture,2,15000,Lahore,Ali
+2026-01-25,Mouse,Electronics,10,2000,Lahore,Hamza
+2026-01-28,Desk,Furniture,1,30000,Karachi,Sara
