@@ -1,5 +1,6 @@
 import csv
 
+
 def load_sales(filename):
     sales = []
 
@@ -77,57 +78,148 @@ def sales_summary(sales):
     }
 
 
+def category_revenue_summary(sales):
+    category_revenue = {}
+
+    for sale in sales:
+        category = sale["category"]
+        revenue = sale["revenue"]
+
+        if category not in category_revenue:
+            category_revenue[category] = 0
+
+        category_revenue[category] += revenue
+
+    return category_revenue
+
+
+def city_revenue_summary(sales):
+    city_revenue = {}
+
+    for sale in sales:
+        city = sale["city"]
+        revenue = sale["revenue"]
+
+        if city not in city_revenue:
+            city_revenue[city] = 0
+
+        city_revenue[city] += revenue
+
+    return city_revenue
+
+
+def salesperson_revenue_summary(sales):
+    salesperson_revenue = {}
+
+    for sale in sales:
+        salesperson = sale["salesperson"]
+        revenue = sale["revenue"]
+
+        if salesperson not in salesperson_revenue:
+            salesperson_revenue[salesperson] = 0
+
+        salesperson_revenue[salesperson] += revenue
+
+    return salesperson_revenue
+
+
+def electronics_revenue_percentage(sales):
+    total_revenue = 0
+    electronics_revenue = 0
+
+    for sale in sales:
+        revenue = sale["revenue"]
+
+        total_revenue += revenue
+
+        if sale["category"] == "Electronics":
+            electronics_revenue += revenue
+
+    percentage = (electronics_revenue / total_revenue) * 100
+
+    return percentage
+
+
+def top_3_products(sales):
+    product_revenue = product_revenue_summary(sales)
+
+    sorted_products = sorted(
+        product_revenue.items(),
+        key=lambda item: item[1],
+        reverse=True
+    )
+
+    return sorted_products[:3]
+
+
+def business_analysis(sales):
+    category_revenue = category_revenue_summary(sales)
+    city_revenue = city_revenue_summary(sales)
+    salesperson_revenue = salesperson_revenue_summary(sales)
+    electronics_percentage = electronics_revenue_percentage(sales)
+    top_products = top_3_products(sales)
+
+    return {
+        "category_revenue": category_revenue,
+        "city_revenue": city_revenue,
+        "salesperson_revenue": salesperson_revenue,
+        "electronics_percentage": electronics_percentage,
+        "top_3_products": top_products
+    }
+
+
 sales = load_sales("sales_project.csv")
-
-total_revenue = 0
-
-for sale in sales:
-    total_revenue += sale["revenue"]
-
-print("Total Revenue:", total_revenue)
-
-
-total_quantity = 0
-
-for sale in sales:
-    total_quantity += sale["quantity"]
-
-print("Total Quantity:", total_quantity)
-
-
-total_orders = len(sales)
-
-print("Total Orders:", total_orders)
-
-
-average_order_value = total_revenue / total_orders
-
-print("Average Order Value:", average_order_value)
-
-
-highest_sale = max(
-    sales,
-    key=lambda sale: sale["revenue"]
-)
-
-print("Highest-Value Sale:")
-print("Product:", highest_sale["product"])
-print("Revenue:", highest_sale["revenue"])
-
-product_summary = product_revenue_summary(sales)
-
-print("Product Revenue Summary:")
-print(product_summary)
-
-top_product = max(
-    product_summary,
-    key=product_summary.get
-)
-
-print("Top Product:", top_product)
-print("Revenue:", product_summary[top_product])
 
 summary = sales_summary(sales)
 
 print("Sales Summary:")
 print(summary)
+
+analysis = business_analysis(sales)
+
+print("\nCategory Revenue:")
+print(analysis["category_revenue"])
+
+print(
+    "Highest Revenue Category:",
+    max(
+        analysis["category_revenue"],
+        key=analysis["category_revenue"].get
+    )
+)
+
+print("\nCity Revenue:")
+print(analysis["city_revenue"])
+
+print(
+    "Highest Revenue City:",
+    max(
+        analysis["city_revenue"],
+        key=analysis["city_revenue"].get
+    )
+)
+
+print("\nSalesperson Revenue:")
+print(analysis["salesperson_revenue"])
+
+print(
+    "Highest Revenue Salesperson:",
+    max(
+        analysis["salesperson_revenue"],
+        key=analysis["salesperson_revenue"].get
+    )
+)
+
+print("\nElectronics Revenue Percentage:")
+print(
+    round(
+        analysis["electronics_percentage"],
+        2
+    ),
+    "%"
+)
+
+print("\nTop 3 Products by Revenue:")
+
+for product, revenue in analysis["top_3_products"]:
+    print(product, "→", revenue)
